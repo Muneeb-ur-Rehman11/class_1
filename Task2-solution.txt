@@ -1,0 +1,248 @@
+TASK A — DEFECT HUNT
+
+The following defects were identified in the given requirement set. The defects are categorized into inconsistencies, incompleteness, ambiguities, unverifiable requirements, and missing business rules.
+
+1. Inconsistencies (Logical Conflicts)
+1.1 R2 vs R3
+
+R2 states that the system shall not allow registration after the deadline.
+R3 states that late registration is allowed for 3 days after the deadline.
+These two requirements directly contradict each other.
+
+1.2 R5 vs R16
+
+R5 allows course registration even if seats are full.
+R16 states that the system shall support waitlisting when seats are full.
+If registration is allowed when seats are full, waitlisting becomes meaningless.
+
+1.3 R9 vs R10
+
+R9 states that the system shall prevent schedule conflicts.
+R10 allows registration for two courses occurring at the same time if one is online.
+R9 does not mention any exception, which creates a conflict.
+
+1.4 R11 vs R12
+
+R11 limits students to 18 credit hours per semester.
+R12 allows up to 24 credit hours with advisor approval.
+The maximum limit is unclear and not properly defined.
+
+1.5 R13 vs R15
+
+R13 allows students to drop courses until Week 6.
+R15 states that the system shall not allow course drops after the deadline.
+The term “deadline” is not clearly defined, causing conflict.
+
+1.6 R7 vs R8
+
+R7 prevents registration if prerequisites are not met.
+R8 allows prerequisites to be ignored with instructor approval.
+The exception handling process is not clearly defined.
+
+2. Incompleteness (Missing Details)
+2.1 R1
+
+The type of students eligible for registration is not defined (e.g., active, suspended, alumni).
+
+2.2 R4
+
+The requirement does not specify whether seat availability is updated in real-time.
+
+2.3 R6
+
+The method and timing of sending confirmation are not specified.
+
+2.4 R14
+
+The drop fee amount or calculation method is not defined.
+
+2.5 R16
+
+The maximum capacity of the waitlist is not specified.
+
+2.6 R19
+
+The mechanism for providing priority enrollment to final-year students is not defined.
+
+2.7 R3
+
+The conditions for late registration approval are not defined.
+
+3. Ambiguities
+3.1 R20
+
+The phrase “register quickly” is vague and lacks measurable criteria.
+
+3.2 R6
+
+The phrase “send confirmation” is unclear regarding timing and method.
+
+3.3 R15
+
+The term “deadline” is ambiguous and not clearly defined.
+
+4. Unverifiable Requirements
+4.1 R20
+
+“Register quickly” cannot be measured or tested without a defined performance metric.
+
+4.2 R6
+
+Without specifying time and medium, confirmation delivery cannot be tested.
+
+5. Missing Business Rules
+5.1 Payment Rule Missing
+
+There is no requirement specifying whether registration requires payment confirmation.
+
+5.2 Duplicate Registration Rule Missing
+
+There is no requirement preventing students from registering for the same course multiple times.
+
+TASK B — DEFECT LOGGING (GitHub Issues Format)
+
+The following defects are logged as GitHub issues.
+
+Issue 1
+
+Title: Conflict Between Registration Deadline Rules
+Requirement ID: R2 & R3
+Defect Type: Inconsistency
+Description: R2 prohibits registration after the deadline while R3 allows late registration for 3 days.
+Impact: Developers cannot implement consistent registration logic.
+Suggested Fix: Define late registration as an exception with approval conditions.
+Priority: High
+
+Issue 2
+
+Title: Seat Availability Conflict
+Requirement ID: R5 & R16
+Defect Type: Inconsistency
+Description: R5 allows registration when seats are full while R16 introduces waitlisting.
+Impact: Contradictory enrollment logic.
+Suggested Fix: Prevent direct enrollment when full and allow waitlisting only.
+Priority: High
+
+Issue 3
+
+Title: Schedule Conflict Exception Undefined
+Requirement ID: R9 & R10
+Defect Type: Inconsistency
+Description: R9 blocks schedule conflicts but R10 introduces an exception without clarification.
+Impact: Implementation confusion.
+Suggested Fix: Modify R9 to include exception for online asynchronous courses.
+Priority: High
+
+Issue 4
+
+Title: Credit Hour Limit Not Clearly Defined
+Requirement ID: R11 & R12
+Defect Type: Inconsistency
+Description: Maximum credit hours unclear (18 or 24).
+Impact: Academic policy confusion.
+Suggested Fix: Define 18 as default and 24 with advisor approval.
+Priority: High
+
+    Issue 5
+
+Title: Drop Deadline Ambiguity
+Requirement ID: R13 & R15
+Defect Type: Ambiguity
+Description: The drop deadline is not clearly defined.
+Impact: Potential disputes regarding eligibility.
+Suggested Fix: Specify exact week or calendar date.
+Priority: Medium
+
+Issue 6
+
+Title: Confirmation Method Not Specified
+Requirement ID: R6
+Defect Type: Incomplete
+Description: Mode and timing of confirmation not mentioned.
+Impact: Notification feature cannot be properly implemented.
+Suggested Fix: Specify email and dashboard notification within defined time.
+Priority: Medium
+
+Issue 7
+
+Title: Late Registration Conditions Missing
+Requirement ID: R3
+Defect Type: Incomplete
+Description: Approval process for late registration not defined.
+Impact: Business process ambiguity.
+Suggested Fix: Require advisor approval through system workflow.
+Priority: High
+
+Issue 8
+
+Title: Unverifiable Performance Requirement
+Requirement ID: R20
+Defect Type: Unverifiable
+Description: “Register quickly” is not measurable.
+Impact: Cannot test system performance.
+Suggested Fix: Define measurable time constraint.
+Priority: Medium
+
+Issue 9
+
+Title: Waitlist Capacity Undefined
+Requirement ID: R16
+Defect Type: Incomplete
+Description: Waitlist size not specified.
+Impact: Potential system capacity issues.
+Suggested Fix: Define maximum waitlist size.
+Priority: Medium 
+
+Issue 10
+
+Title: Prerequisite Exception Handling Undefined
+Requirement ID: R7 & R8
+Defect Type: Inconsistency
+Description: Instructor approval process not defined.
+Impact: Access control ambiguity.
+Suggested Fix: Define digital approval mechanism within system.
+Priority: High
+
+TASK C — REWRITTEN CORRECT REQUIREMENTS
+
+The following requirements are rewritten to be clear, testable, complete, and non-conflicting.
+
+Revised R1
+
+The system shall allow active enrolled students to register for available courses during the official registration period.
+
+Revised R2 & R3
+
+The system shall allow course registration until the official registration deadline. Late registration shall be permitted for up to 3 calendar days after the deadline with advisor approval recorded in the system.
+
+Revised R4
+
+The system shall display real-time available seat counts for each course section.
+
+Revised R5 & R16
+
+If a course section is full, the system shall prevent direct enrollment and shall allow students to join a waitlist.
+
+Revised R6
+
+The system shall send an email and dashboard confirmation within one minute after successful course registration.
+
+Revised R7 & R8
+
+The system shall prevent registration if prerequisites are not met unless an instructor provides digital approval within the system.
+
+Revised R9 & R10
+
+The system shall prevent students from registering for courses with schedule conflicts, except when one of the courses is fully online and asynchronous.
+
+Revised R11 & R12
+
+The system shall limit students to a maximum of 18 credit hours per semester. Students may register for up to 24 credit hours only after advisor approval is recorded in the system.
+
+Revised R13, R14 & R15
+
+Students may drop courses until the end of Week 6 of the semester. A drop fee shall be charged for drops made after Week 2. Course drops shall not be permitted after Week 6.
+
+Revised R20
+
+The system shall complete the course registration transaction within three seconds under normal operating conditions.
